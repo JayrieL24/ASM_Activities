@@ -1,5 +1,4 @@
-Ralph
-Ralph Dulla
+
 section .data
     msg db 'HELLO WORLD', 0 
     len equ $ - msg         
