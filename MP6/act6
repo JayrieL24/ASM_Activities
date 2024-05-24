@@ -1,0 +1,43 @@
+Ralph
+Ralph Dulla
+section .data
+    msg db 'HELLO WORLD', 0 
+    len equ $ - msg         
+
+section .text
+    global _start          
+
+_start:
+    mov esi, msg           
+    mov ecx, len         
+
+encrypt:
+    mov al, [esi]          
+    cmp al, 'A'             
+    jb .next             
+    cmp al, 'Z'            
+    ja .next               
+
+    add al, 3              
+    cmp al, 'Z'             
+    jle .store              
+    sub al, 26             
+
+.store:
+    mov [esi], al           
+
+.next:
+    inc esi              
+    loop encrypt          
+
+    ; Printing the encrypted message
+    mov eax, 4           
+    mov ebx, 1             
+    mov ecx, msg          
+    mov edx, len            
+    int 0x80                
+
+    ; Exiting the program
+    mov eax, 1             
+    xor ebx, ebx           
+    int 0x80              
